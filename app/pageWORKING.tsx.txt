@@ -1,0 +1,54 @@
+"use client"
+
+import Image from "next/image";
+import { useState, useEffect, useRef } from "react";
+//import styles from "./page.module.css";
+import styles from "./page.module.css";
+//import asd from "./resources.arsc";
+//import fs from 'fs';
+//const fs = require('fs');
+import { promises as fs } from 'fs';
+
+export default function Home() {
+
+  const [hexContent, setHexContent] = useState('');
+  const fileInputRef = useRef(null);
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const arrayBuffer = e.target.result;
+        const hexString = arrayBufferToHex(arrayBuffer);
+        setHexContent(hexString);
+      };
+      reader.readAsArrayBuffer(file);
+    }
+  };
+
+  const arrayBufferToHex = (arrayBuffer) => {
+    const uint8Array = new Uint8Array(arrayBuffer);
+    let hexString = '';
+    for (let i = 0; i < uint8Array.length; i++) {
+      const byte = uint8Array[i];
+      hexString += byte.toString(16).padStart(2, '0');
+    }
+    return hexString;
+  };
+
+  return (
+    <div>
+      <input type="file" ref={fileInputRef} onChange={handleFileChange} />
+      {hexContent && (
+        <div>
+          <h3>Hexadecimal Content:</h3>
+          <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>
+            {hexContent}
+          </pre>
+        </div>
+      )}
+    </div>
+  );
+
+}

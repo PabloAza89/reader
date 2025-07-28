@@ -1,0 +1,88 @@
+"use client"
+
+import Image from "next/image";
+import { useState, useEffect } from "react";
+//import styles from "./page.module.css";
+import styles from "./page.module.css";
+//import asd from "./resources.arsc";
+//import fs from 'fs';
+//const fs = require('fs');
+import { promises as fs } from 'fs';
+
+export default function Home() {
+
+  const [hexContent, setHexContent] = useState('');
+  //const array = []
+  //const [ arrayState, setArrayState] = useState<any[]>([]);
+  //const [ arrayState, setArrayState] = useState<unknown[]>([]);
+  const [ arrayState, setArrayState] = useState([]);
+  const array: unknown[] = []
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onloadend = (e) => {
+        if (reader.readyState === FileReader.DONE) {
+          const arrayBuffer = e.target.result;
+          const uint8Array = new Uint8Array(arrayBuffer);
+          let hexString = '';
+          uint8Array.forEach((byte) => {
+            //hexString += byte.toString(16).padStart(2, '0');
+            //array.push(byte.toString(16).padStart(2, '0'))
+            //array.push(byte.toString(16).padStart(2, '0'))
+            //setArrayState(curr => curr.push( byte.toString(16).padStart(2, '0') ) )
+            //setArrayState(prevItems => [...prevItems, "22" ])
+            //setArrayState(prevItems => [...prevItems.push("22")])
+            //hexString += byte.toString(16).padStart(2, '0');
+            //setArrayState(prevItems => [...prevItems.push("asd") as unknown])
+            array.push(byte.toString(16).padStart(2, '0'))
+
+          });
+
+          //setArrayState(array)
+          setArrayState([...array])
+          //setArrayState(array)
+          //console.log("33", hexString)
+          //console.log("33", arrayState)//
+          console.log("33", array)
+          //console.log("33", arrayState)
+          //setHexContent(hexString);
+        }
+      };
+
+      reader.readAsArrayBuffer(file);
+    }
+  };
+
+  return (
+    <div>
+      <input type="file" onChange={handleFileChange} />
+      
+      <div className={styles.aaa}>
+        {/* <h3>Hexadecimal Content:</h3> */}
+        {/* <h4>Hexadecimal Content:</h4> */}
+        {/* <pre>{hexContent}</pre> */}
+        {/* <div>{arrayState[0]}</div> */}
+        {/* <div>{arrayState[0]}{arrayState[1]}</div> */}
+        {/* <div>{arrayState.map(e => e)}</div> */}
+        {/* <div>{arrayState.toString()}</div> */}
+        {/* <div>{array.toString()}</div> */}
+        {/* <div>{array}</div> */}
+        {/* <div>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</div> */}
+        {/* <pre>{ arrayState }</pre> */}
+        <h2>Uint8Array to useState Array:</h2>
+        <ul>
+          {
+            arrayState.map((value, index) => (
+              <li key={index}>{value}</li>
+            ))
+          }
+        </ul>
+      </div>
+      
+    </div>
+  );
+
+}

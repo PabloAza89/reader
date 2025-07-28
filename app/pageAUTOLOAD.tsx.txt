@@ -1,0 +1,196 @@
+"use client"
+
+import Image from "next/image";
+import { useState, useEffect } from "react";
+import styles from "./page.module.css";
+//import asd from "./resources.arsc";
+//import fs from 'fs';
+//const fs = require('fs');
+import { promises as fs } from 'fs';
+
+export default function Home() {
+
+  ////const fs = require('fs');
+
+  //fs.readFile('path/to/your/binaryFile.bin', (err, data) => {
+
+  //const [ asd, setAsd ] = useState<unknown>("")
+
+  // useEffect(() => {
+  //   const fetchFile = async () => {
+  //     const response = await fetch('./resources.arsc');
+  //     const data = await response.text(); // or .json() if it's JSON
+  //     console.log("AAA", data)
+  //     //setFileContent(data);
+  //   };
+  //   fetchFile();
+  // }, []);
+
+  // async function aaa() {
+  //   fs.readFile('app/resources.arsc', (err, data) => {
+  //     if (err) {
+  //       console.error('Error reading file:', err);
+  //       return;
+  //     }
+  //     // 'data' is a Buffer object containing the binary data
+  //     console.log('Binary data (Buffer):', data);
+  //     //setAsd(data)
+  //     // You can convert it to a string if needed (e.g., base64)
+  //     // console.log('Binary data (Base64):', data.toString('base64'));
+  //   });
+  // }
+
+    // fs.readFile('app/resources.arsc', (err, data) => {
+    //   if (err) {
+    //     console.error('Error reading file:', err);
+    //     return;
+    //   }
+    //   // 'data' is a Buffer object containing the binary data
+    //   console.log('Binary data (Buffer):', data);
+    //   //setAsd(data)
+    //   // You can convert it to a string if needed (e.g., base64)
+    //   // console.log('Binary data (Base64):', data.toString('base64'));
+    // });
+
+  // async function aaa() {
+  //   const fileContent = await fs.readFile('app/resources.arsc');
+  //   console.log(fileContent)
+  //   return fileContent
+  // }
+
+  // aaa()
+
+  // const [fileContent, setFileContent] = useState(null);
+
+  // const handleFileChange = (event) => {
+  //   const file = event.target.files[0]; // Get the selected file
+
+  //   if (file) {
+  //     const reader = new FileReader();
+
+  //     reader.onload = (e) => {
+  //       // e.target.result contains the file's content
+  //       setFileContent(e.target.result);
+  //       console.log("File content:", e.target.result);
+  //     };
+
+  //     reader.onerror = (e) => {
+  //       console.error("Error reading file:", e.target.error);
+  //     };
+
+  //     // Choose how to read the file:
+  //     reader.readAsText(file, 'UTF-16'); // Read as text
+  //     //reader.readAsText(file); // Read as text
+  //     //reader.readAsDataURL(file); // Read as Data URL (e.g., for images)
+  //     //reader.readAsArrayBuffer(file); // Read as ArrayBuffer
+  //     //reader.readAsBinaryString(file); // Read as binary string
+  //   }
+  // };
+
+  // console.log("AA", fileContent)
+
+  // {fileContent && <pre>{`${fileContent}`}</pre>} {/* Display content */}
+  // <input type="file" onChange={handleFileChange} />
+  // {fileContent}
+
+  //const [dataContent, setDataContent] = useState("");
+  //const [dataContent, setDataContent] = useState();
+  const [dataContent, setDataContent] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // useEffect(() => {
+  //   async function fetchFileContent() {
+  //     try {
+  //       const response = await fetch('app/page2');
+  //       if (!response.ok) {
+  //         throw new Error('Failed to fetch file content');
+  //       }
+  //       const data = await response.json();
+  //       setFileContent(data.content);
+  //       console.log("RR", data.content)
+  //     } catch (err) {
+  //       setError(err.message);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   }
+  //   fetchFileContent();
+  // }, []);
+
+  // useEffect(() => {
+  //   async function getArtist() {
+  //     const res = await fetch(`http://192.168.0.164:3000/api/page2`)
+  //   // const data = await res.json();
+  //     console.log("RR", res)
+  //     //console.log("RES", res)
+  //     //return res.json()
+  //   }
+
+  //   getArtist()
+  // }, [])
+
+  useEffect(() => {
+    //fetch('/api/page2')
+    //fetch('http://localhost:3000/api/page2')
+
+    //console.log("DATA test")
+
+    fetch('/api/page2')
+      .then((res) => res.json())
+      .then((data) => {
+        // setData(data)
+        // setLoading(false)
+        //console.log("DATA", data.content.toString())
+        //console.log("DATA", data.content.data)        
+        //setDataContent(data.content)
+        //setDataContent(data.content.data)
+        //setDataContent(data.content.data.toString())
+        //setDataContent(123)
+
+        //setDataContent(data.content.toString())
+        //console.log("A VER", data.content)
+
+        //setDataContent(data.content)
+        //console.log("ASD", typeof data.content)
+
+        //return data.content
+
+        setDataContent([data.content])
+
+        // const result = [];
+        // for (let i = 0; i < data.content.length; i += 2) {
+        //   result.push(data.content.slice(i, i + 2));
+        // }
+        // setDataContent(result)
+
+
+        //return data.content.toString()
+        //setDataContent(123)
+        //console.log("DATA", data)
+      })
+      // .then((data) => {
+      //   const result = [];
+      //   for (let i = 0; i < data.length; i += 2) {
+      //     result.push(data.slice(i, i + 2));
+      //   }
+      //   setDataContent(result)
+      // })
+      // .then((data) => {
+      //   //setDataContent(data)
+      //   console.log("AAAA", data)
+      //   setDataContent([...data])
+      // })
+      
+  }, [])
+
+  //console.log("OUT")
+
+  return (
+    <div className={styles.page}>
+      {/* {asd} */}
+     {/* asd */}
+     { dataContent }
+    </div>
+  );
+}

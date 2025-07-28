@@ -1,0 +1,83 @@
+//"use client"
+
+//import Image from "next/image";
+//import { useState, useEffect } from "react";
+//import styles from "./page.module.css";
+//import asd from "./resources.arsc";
+//import fs from 'fs';
+//const fs = require('fs');
+import { promises as fs } from 'fs';
+import type { NextApiRequest, NextApiResponse } from 'next'
+ 
+type ResponseData = {
+  message: string
+}
+
+export const config = {
+  api: {
+    responseLimit: false,
+  },
+}
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
+//export default async function handler() {
+
+  // async function aaa() {
+  //   const fileContent = await fs.readFile('app/resources.arsc');
+  //   console.log(fileContent)
+  //   return fileContent
+  // }
+
+  // aaa()
+
+  //console.log("THIS")
+    // async function aaa() {
+    //   const fileContent = await fs.readFile('app/resources.arsc');
+    //   console.log(fileContent)
+    //   return fileContent
+    // }
+
+
+
+  // if (req.method === 'GET') {
+  //   try {
+  //     console.log("THIS")
+  //     // Construct the path to your file (e.g., in the 'public' directory)
+  //     // const filePath = path.join(process.cwd(), 'public', 'my-data.txt'); 
+  //     //const fileContent = fs.readFile('app/resources.arsc');
+
+  //     //console.log("SV RESP", fileContent)
+  //     //aaa()
+
+  //     //res.status(200).json({ content: fileContent });
+  //     //res.status(200).json({ content: fileContent });
+
+  //     res.status(200).json({ content: {"asd": 11} });
+  //   } catch (error) {
+  //     console.error('Error reading file:', error);
+  //     res.status(500).json({ error: 'Failed to read file' });
+  //   }
+  // } else {
+  //   console.log("HEREE")
+  // }
+
+  //return { "asd": 123}
+  //   else {
+  //   //res.setHeader('Allow', ['GET']);
+  //   res.status(405).end(`Method ${req.method} Not Allowed`);
+  // }
+
+  const fileContent = await fs.readFile('app/resources.arsc');
+  //console.log("RR", typeof fileContent)
+  //console.log("RR", Object.keys(fileContent))
+
+  //const hexString = Buffer.from(fileContent, 'utf8').toString('hex');
+  const hexString = Buffer.from(fileContent).toString('hex');
+
+  console.log("RR", hexString)
+  
+  //res.status(200).json({ message: 'Hello from Next.js!' })
+  //res.status(200).json({ message: fileContent })
+  res.status(200).json({ content: hexString })
+
+}
