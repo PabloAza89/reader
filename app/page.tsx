@@ -12,7 +12,7 @@ import { promises as fs } from 'fs';
 function Home() {
 
   //const [hexContent, setHexContent] = useState('');
-  //const [hexContent, setHexContent] = useState([]);
+  const [hexContent, setHexContent] = useState<string[][]>([]);
 
   // const [hexContent, setHexContent] = useState([
   //   ['02', '00', '0c', '00', '5c', '93', 'fa', '00', '04', '00', '00', '00', '01', '00', '1c', '00'],
@@ -31,13 +31,15 @@ function Home() {
         const arrayBuffer = e.target.result;
         //const hexString = arrayBufferToHex(arrayBuffer);
         const uint8Array = new Uint8Array(arrayBuffer);
+
+        //console.log("LENGTH A VER", Math.ceil(uint8Array.length / 16))
+        console.log("LENGTH A VER", Math.ceil(uint8Array.length / 16))
+        Math.ceil(uint8Array.length / 16)
+        //console.log("LENGTH A VER", uint8Array.length)
         //const hexString = [];
-        const hexString = Array.from({ length: Math.ceil(uint8Array.length / 16) }, () => 
-        []
-        );
-        
-
-
+        const total = Math.ceil(uint8Array.length / 16)
+        //const total2 = total.toString().length
+        const hexString: string[][] = Array.from({ length: total }, () => []);
 
         //for (let i = 0; i < uint8Array.length; i + 8) {
           //for (let i = 0; i < uint8Array.length; i++) {
@@ -49,18 +51,19 @@ function Home() {
           //   else hexString[Math.floor(target)].push(uint8Array[i].toString(16).padStart(2, '0'))
 
           // }
+          //const target = i / 16;
+          for (let i = 0; i < uint8Array.length; i++) {
+            //const target = i / 16;
+            // const target2 = i % 16;
+            const target = i / 16;
+            // if (target2 === 0) hexString[Math.floor(target)] = [uint8Array[i].toString(16).padStart(2, '0')]
+            // else hexString[Math.floor(target)].push(uint8Array[i].toString(16).padStart(2, '0'))
+            //hexString[Math.floor(target)][] = uint8Array[i].toString(16).padStart(2, '0')
+            //hexString[Math.floor(target)].push(uint8Array[i].toString(16).padStart(2, '0'))
+            hexString[Math.floor(target)].push(uint8Array[i].toString(16).padStart(2, '0'))
+          }
 
-          // for (let i = 0; i < uint8Array.length; i++) {
-          //   const target = i / 16;
-          //   // const target2 = i % 16;
-          //   // if (target2 === 0) hexString[Math.floor(target)] = [uint8Array[i].toString(16).padStart(2, '0')]
-          //   // else hexString[Math.floor(target)].push(uint8Array[i].toString(16).padStart(2, '0'))
-          //   //hexString[Math.floor(target)][] = uint8Array[i].toString(16).padStart(2, '0')
-          //   //hexString[Math.floor(target)].push(uint8Array[i].toString(16).padStart(2, '0'))
-          //   hexString[Math.floor(target)].push(uint8Array[i].toString(16).padStart(2, '0'))
-          // }
-
-        //setHexContent(hexString);
+        setHexContent(hexString);
       };
       reader.readAsArrayBuffer(file);
     }
@@ -68,6 +71,9 @@ function Home() {
 
   //console.log("33", hexContent)
   console.log("33", hexContent)
+
+  console.log("33 LENGTH", hexContent.length)
+  console.log("33 LENGTH", hexContent.length.toString().length)
 
   // const arrayBufferToHex = (arrayBuffer) => {
   //   const uint8Array = new Uint8Array(arrayBuffer);
@@ -111,6 +117,8 @@ function Home() {
   //   }
   // }
 
+  const padStart = hexContent.length.toString().length
+
   return (
     <div>
       <input type="file" /* ref={fileInputRef} */ onChange={handleFileChange} />
@@ -140,7 +148,7 @@ function Home() {
               //hexContent.map((iA: [], idx) => { return iA.join(` `) } ).join(`\n`)
               //hexContent.map((iA: [], idx) => { return `${idx} ${iA}` } ).join(`\n`)
               hexContent.map((item: [], index) => {
-                return `${index + 1}. ${item.join(' ')}`; // Adds 1 to index for 1-based numbering
+                return `${`${(index++)}`.padStart(padStart, '0')}. ${item.join(' ')}`; // Adds 1 to index for 1-based numbering
               }).join("\n")
             }
 
