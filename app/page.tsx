@@ -33,7 +33,7 @@ function Home() {
         const uint8Array = new Uint8Array(arrayBuffer);
 
         //console.log("LENGTH A VER", Math.ceil(uint8Array.length / 16))
-        console.log("LENGTH A VER", Math.ceil(uint8Array.length / 16))
+        //console.log("LENGTH A VER", Math.ceil(uint8Array.length / 16))
         Math.ceil(uint8Array.length / 16)
         //console.log("LENGTH A VER", uint8Array.length)
         //const hexString = [];
@@ -69,11 +69,37 @@ function Home() {
     }
   };
 
-  //console.log("33", hexContent)
-  console.log("33", hexContent)
+  const RES_NULL_TYPE                     = '0000'; // already little-endian
+  const RES_STRING_POOL_TYPE              = '0100'; // 
+  const RES_TABLE_TYPE                    = '0200';
+  const RES_XML_TYPE                      = '0300';
 
-  console.log("33 LENGTH", hexContent.length)
-  console.log("33 LENGTH", hexContent.length.toString().length)
+    // Chunk types in RES_XML_TYPE
+  const RES_XML_FIRST_CHUNK_TYPE          = '0001';
+  const RES_XML_START_NAMESPACE_TYPE      = '0001';
+  const RES_XML_END_NAMESPACE_TYPE        = '0101';
+  const RES_XML_START_ELEMENT_TYPE        = '0201';
+  const RES_XML_END_ELEMENT_TYPE          = '0301';
+  const RES_XML_CDATA_TYPE                = '0401';
+  const RES_XML_LAST_CHUNK_TYPE           = '7f01';
+    // This contains a uint32_t array mapping strings in the string
+    // pool back to resource identifiers.  It is optional.
+  const RES_XML_RESOURCE_MAP_TYPE         = '8001';
+
+    // Chunk types in RES_TABLE_TYPE
+  const RES_TABLE_PACKAGE_TYPE            = '0002';
+  const RES_TABLE_TYPE_TYPE               = '0102';
+  const RES_TABLE_TYPE_SPEC_TYPE          = '0202';
+  const RES_TABLE_LIBRARY_TYPE            = '0302';
+  const RES_TABLE_OVERLAYABLE_TYPE        = '0402';
+  const RES_TABLE_OVERLAYABLE_POLICY_TYPE = '0502';
+  const RES_TABLE_STAGED_ALIAS_TYPE       = '0602';
+
+  //console.log("33", hexContent)
+  //console.log("33", hexContent)
+
+  //console.log("33 LENGTH", hexContent.length)
+  //console.log("33 LENGTH", hexContent.length.toString().length)
 
   // const arrayBufferToHex = (arrayBuffer) => {
   //   const uint8Array = new Uint8Array(arrayBuffer);
@@ -125,7 +151,7 @@ function Home() {
       {hexContent && (
         <div>
           <h3>Hexadecimal Content:</h3>
-          <div style={{ whiteSpace: 'pre-wrap', fontFamily: 'monospace', fontSize: 'large' }}>
+          <div style={{ whiteSpace: 'pre-wrap', fontFamily: 'monospace', fontSize: 'large', background: 'lavender', width: 'fit-content' }}>
 
             {/* {
               hexContent.map((e: string[], i) => {
@@ -148,7 +174,7 @@ function Home() {
               //hexContent.map((iA: [], idx) => { return iA.join(` `) } ).join(`\n`)
               //hexContent.map((iA: [], idx) => { return `${idx} ${iA}` } ).join(`\n`)
               hexContent.map((item: [], index) => {
-                return `${`${(index++)}`.padStart(padStart, '0')}. ${item.join(' ')}`; // Adds 1 to index for 1-based numbering
+                return `${`${(++index)}`.padStart(padStart, '0')}. ${item.join(' ')}`; // Adds 1 to index for 1-based numbering
               }).join("\n")
             }
 
