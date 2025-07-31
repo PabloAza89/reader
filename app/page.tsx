@@ -12,7 +12,8 @@ import { promises as fs } from 'fs';
 function Home() {
 
   //const [hexContent, setHexContent] = useState('');
-  const [hexContent, setHexContent] = useState<string[][]>([]);
+  //const [hexContent, setHexContent] = useState<string[][]>([]);
+  const [hexContent, setHexContent] = useState<string[]>([]);
 
   // const [hexContent, setHexContent] = useState([
   //   ['02', '00', '0c', '00', '5c', '93', 'fa', '00', '04', '00', '00', '00', '01', '00', '1c', '00'],
@@ -39,7 +40,20 @@ function Home() {
         //const hexString = [];
         const total = Math.ceil(uint8Array.length / 16)
         //const total2 = total.toString().length
-        const hexString: string[][] = Array.from({ length: total }, () => []);
+        //const hexString: string[][] = Array.from({ length: total }, () => []);
+        //const hexString: string[] = []
+        //const hexString: string[] = Array.from(uint8Array, x => x.toString(16).padStart(2, '0'))
+        const hexString: string[] = Array.from(uint8Array, (e, i) => {
+          //return x.toString(16).padStart(2, '0')
+          // return x.toString(16).padStart(2, '0')
+          // return i === 0 || i % 16 ? e.toString(16).padStart(2, '0') :
+          //   `\n${e.toString(16).padStart(2, '0')}`
+          return i % 16 ?
+            e.toString(16).padStart(2, '0') :
+            `\n${e.toString(16).padStart(2, '0')}`
+        })
+
+        hexString[0] = hexString[0].replace(/\n/, '')
 
         //for (let i = 0; i < uint8Array.length; i + 8) {
           //for (let i = 0; i < uint8Array.length; i++) {
@@ -50,18 +64,25 @@ function Home() {
           //   if (target2 === 0) hexString[Math.floor(target)] = [uint8Array[i].toString(16).padStart(2, '0')]
           //   else hexString[Math.floor(target)].push(uint8Array[i].toString(16).padStart(2, '0'))
 
+          //console.log("A VER", uint8Array)
+
           // }
           //const target = i / 16;
-          for (let i = 0; i < uint8Array.length; i++) {
-            //const target = i / 16;
-            // const target2 = i % 16;
-            const target = i / 16;
-            // if (target2 === 0) hexString[Math.floor(target)] = [uint8Array[i].toString(16).padStart(2, '0')]
-            // else hexString[Math.floor(target)].push(uint8Array[i].toString(16).padStart(2, '0'))
-            //hexString[Math.floor(target)][] = uint8Array[i].toString(16).padStart(2, '0')
-            //hexString[Math.floor(target)].push(uint8Array[i].toString(16).padStart(2, '0'))
-            hexString[Math.floor(target)].push(uint8Array[i].toString(16).padStart(2, '0'))
-          }
+          // for (let i = 0; i < uint8Array.length; i++) {
+          //   //const target = i / 16;
+          //   // const target2 = i % 16;
+          //   const target = i / 16;
+          //   // if (target2 === 0) hexString[Math.floor(target)] = [uint8Array[i].toString(16).padStart(2, '0')]
+          //   // else hexString[Math.floor(target)].push(uint8Array[i].toString(16).padStart(2, '0'))
+          //   //hexString[Math.floor(target)][] = uint8Array[i].toString(16).padStart(2, '0')
+          //   //hexString[Math.floor(target)].push(uint8Array[i].toString(16).padStart(2, '0'))
+          //   //hexString[Math.floor(target)].push(uint8Array[i].toString(16).padStart(2, '0'))
+          //   hexString.push(uint8Array[i].toString(16).padStart(2, '0'))
+          // }
+
+          // for (let i = 15; i < hexString.length; i += 16) { // Start at index 5 (6th element), increment by 6
+          //   hexString[i] += '\n';
+          // }
 
         setHexContent(hexString);
       };
@@ -145,6 +166,8 @@ function Home() {
 
   const padStart = hexContent.length.toString().length
 
+  console.log("A VER", hexContent)
+
   return (
     <div>
       <input type="file" /* ref={fileInputRef} */ onChange={handleFileChange} />
@@ -168,14 +191,17 @@ function Home() {
 
             {
               /* hexContent[Symbol.iterator]() */
-              //hexContent.join(' ')
+              hexContent.join(' ')
               //hexContent.join("\n")
               /* hexContent.map((iA: [], idx) => iA.join(`${idx} `)).join(`\n`) */
               //hexContent.map((iA: [], idx) => { return iA.join(` `) } ).join(`\n`)
               //hexContent.map((iA: [], idx) => { return `${idx} ${iA}` } ).join(`\n`)
-              hexContent.map((item: [], index) => {
-                return `${`${(++index)}`.padStart(padStart, '0')}. ${item.join(' ')}`; // Adds 1 to index for 1-based numbering
-              }).join("\n")
+              // hexContent.map((item: [], index) => {
+              //   return `${`${(++index)}`.padStart(padStart, '0')}. ${item.join(' ')}`; // Adds 1 to index for 1-based numbering
+              // }).join("\n")
+              // hexContent.map((item, index) => {
+              //   return `${`${(++index)}`.padStart(padStart, '0')}. ${item}`; // Adds 1 to index for 1-based numbering
+              // }).join("\n")
             }
 
 
