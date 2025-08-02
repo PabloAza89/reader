@@ -91,7 +91,7 @@ function Home() {
   };
 
   const RES_NULL_TYPE                     = '0000'; // already little-endian
-  const RES_STRING_POOL_TYPE              = '0100'; // 
+  const RES_STRING_POOL_TYPE              = '0100'; //
   const RES_TABLE_TYPE                    = '0200';
   const RES_XML_TYPE                      = '0300';
 
@@ -166,7 +166,19 @@ function Home() {
 
   const padStart = hexContent.length.toString().length
 
-  console.log("A VER", hexContent)
+  //const newPadStart = Math.ceil(hexContent.length / 16).length.toString().length
+  const newPadStart = Math.ceil(hexContent.length / 16).toString().length
+  console.log("newPadStart", newPadStart)
+
+  //console.log("FINAL ", hexContent.join(' ').split('\n'))
+
+  const preToShow = hexContent.join(' ').split('\n')
+
+
+  //Math.ceil(uint8Array.length / 16).length.toString().length
+
+  console.log("hexContent", hexContent)
+  console.log("preToShow", preToShow)
 
   return (
     <div>
@@ -191,7 +203,7 @@ function Home() {
 
             {
               /* hexContent[Symbol.iterator]() */
-              hexContent.join(' ')
+              /* hexContent.join(' ') */
               //hexContent.join("\n")
               /* hexContent.map((iA: [], idx) => iA.join(`${idx} `)).join(`\n`) */
               //hexContent.map((iA: [], idx) => { return iA.join(` `) } ).join(`\n`)
@@ -199,9 +211,12 @@ function Home() {
               // hexContent.map((item: [], index) => {
               //   return `${`${(++index)}`.padStart(padStart, '0')}. ${item.join(' ')}`; // Adds 1 to index for 1-based numbering
               // }).join("\n")
-              // hexContent.map((item, index) => {
-              //   return `${`${(++index)}`.padStart(padStart, '0')}. ${item}`; // Adds 1 to index for 1-based numbering
-              // }).join("\n")
+              preToShow.map((item, index) => {
+                //return `${`${(++index)}`.padStart(newPadStart, '0')}. ${item}`; // Adds 1 to index for 1-based numbering
+                return `${`${(index+1)}`.padStart(newPadStart, '0')}: ${item}`; // Adds 1 to index for 1-based numbering
+                //return `${item}`; // Adds 1 to index for 1-based numbering
+              }).join("\n")
+              ////gmail
             }
 
 
