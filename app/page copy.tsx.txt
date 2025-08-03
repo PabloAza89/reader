@@ -17,7 +17,7 @@ function Home() {
   const [toShow, setToShow] = useState<string[]>([]);
   //let toDisplay = ''
 
-  // const [originalArray, setOriginalArray] = useState([
+  // const [hexContent, setHexContent] = useState([
   //   ['02', '00', '0c', '00', '5c', '93', 'fa', '00', '04', '00', '00', '00', '01', '00', '1c', '00'],
   //   ['84', '64', 'a8', '00', 'f6', '52', '02', '00', '1b', '05', '00', '00', '00', '01', '00', '00'],
   //   ['60', '60', '09', '00', 'cc', '12', 'a8', '00', '00', '00', '00', '00', '48', '00', '00', '00'],
@@ -46,18 +46,7 @@ function Home() {
         //const hexString: string[] = []
         //const hexString: string[] = Array.from(uint8Array, x => x.toString(16).padStart(2, '0'))
         //const raw: string[] = Array.from(uint8Array, (e, i) => { return e.toString(16).padStart(2, '0') })
-
         const raw: string[] = Array.from(uint8Array, e => e.toString(16).padStart(2, '0') )
-
-        // const raw: string[] = [
-        //   '02', '00', '0c', '00', '5c', '93', 'fa', '00', '04', '00', '00', '00', '01', '00', '1c', '00',
-        //   '84', '64', 'a8', '00', 'f6', '52', '02', '00', '1b', '05', '00', '00', '00', '01', '00', '00',
-        //   '60', '60', '09', '00', 'cc', '12', 'a8', '00', '00', '00', '00', '00', '48', '00', '00', '00',
-        //   '90', '00', '00', '00', '98', '00', '00', '00', 'b6', '00', '00', '00', 'cb', '00', '00', '00',
-        //   'f0', '00', '00', '00', '00', '01', '00', '00', '17', '01', '00', '00', '48', '01', '00', '00',
-        // ]
-
-
         const raw2: string[] = [...raw]
           //return x.toString(16).padStart(2, '0')
           // return x.toString(16).padStart(2, '0')
@@ -113,16 +102,12 @@ function Home() {
         //   //arr[i] = modificationFn(arr[i], i, arr);
         // }
 
-        for (let i = 16; i < raw2.length; i += 16) {
+        for (let i = 15; i < raw2.length; i += 16) {
           //raw[i] = modificationFn(arr[i], i, arr);
-          raw2[i] = `g${raw2[i]}`
+          raw2[i] = `${raw2[i]}\n`
         }
 
-        console.log("RAW 2", raw2)
-
-        console.log("RAW 3", raw2.join(' ').split('g'))
-
-        setToShow(raw2.join(' ').split('\g'));
+        setToShow(raw2);
         
       };
       reader.readAsArrayBuffer(file);
@@ -240,10 +225,6 @@ function Home() {
 
   console.log("toDisplay", toShow)
 
-  //setToShow(curr => curr)
-
-  //.
-
   return (
     <div>
       <input type="file" /* ref={fileInputRef} */ onChange={handleFileChange} />
@@ -270,7 +251,7 @@ function Home() {
               /* hexContent.join(' ') */
               //hexContent.join("\n")
               //toShow.join("\n")
-              //toShow.join(" ")
+              toShow.join(" ")
               /* hexContent.map((iA: [], idx) => iA.join(`${idx} `)).join(`\n`) */
               //hexContent.map((iA: [], idx) => { return iA.join(` `) } ).join(`\n`)
               //hexContent.map((iA: [], idx) => { return `${idx} ${iA}` } ).join(`\n`)
@@ -283,11 +264,6 @@ function Home() {
               //   //return `${item}`; // Adds 1 to index for 1-based numbering
               // }).join("\n")
               ////gmail
-              toShow.map((item, index) => {
-                //return `${`${(++index)}`.padStart(newPadStart, '0')}. ${item}`; // Adds 1 to index for 1-based numbering
-                return `${`${(index+1)}`.padStart(padStart, '0')}: ${item}`; // Adds 1 to index for 1-based numbering
-                //return `${item}`; // Adds 1 to index for 1-based numbering
-              }).join("\n")
             }
 
 
