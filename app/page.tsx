@@ -35,18 +35,6 @@ function Home() {
         //const hexString = arrayBufferToHex(arrayBuffer);
         const uint8Array = new Uint8Array(arrayBuffer);
 
-        //console.log("LENGTH A VER", Math.ceil(uint8Array.length / 16))
-        //console.log("LENGTH A VER", Math.ceil(uint8Array.length / 16))
-        //Math.ceil(uint8Array.length / 16)
-        //console.log("LENGTH A VER", uint8Array.length)
-        //const hexString = [];
-        //const total = Math.ceil(uint8Array.length / 16)
-        //const total2 = total.toString().length
-        //const hexString: string[][] = Array.from({ length: total }, () => []);
-        //const hexString: string[] = []
-        //const hexString: string[] = Array.from(uint8Array, x => x.toString(16).padStart(2, '0'))
-        //const raw: string[] = Array.from(uint8Array, (e, i) => { return e.toString(16).padStart(2, '0') })
-
         const raw: string[] = Array.from(uint8Array, e => e.toString(16).padStart(2, '0') )
 
         // const raw: string[] = [
@@ -57,61 +45,9 @@ function Home() {
         //   'f0', '00', '00', '00', '00', '01', '00', '00', '17', '01', '00', '00', '48', '01', '00', '00',
         // ]
 
-
         const raw2: string[] = [...raw]
-          //return x.toString(16).padStart(2, '0')
-          // return x.toString(16).padStart(2, '0')
-          // return i === 0 || i % 16 ? e.toString(16).padStart(2, '0') :
-        //   `\n${e.toString(16).padStart(2, '0')}`
-        //   return i % 16 ?
-        //     e.toString(16).padStart(2, '0') :
-        //     `\n${e.toString(16).padStart(2, '0')}`
-        // })
-
-        //hexString[0] = hexString[0].replace(/\n/, '')
-        //originalArray[0] = hexString[0].replace(/\n/, '')
-
-        //for (let i = 0; i < uint8Array.length; i + 8) {
-          //for (let i = 0; i < uint8Array.length; i++) {
-
-          // for (let i = 0; i < uint8Array.length; i++) {
-          //   const target = i / 16;
-          //   const target2 = i % 16;
-          //   if (target2 === 0) hexString[Math.floor(target)] = [uint8Array[i].toString(16).padStart(2, '0')]
-          //   else hexString[Math.floor(target)].push(uint8Array[i].toString(16).padStart(2, '0'))
-
-          //console.log("A VER", uint8Array)
-
-          // }
-          //const target = i / 16;
-          // for (let i = 0; i < uint8Array.length; i++) {
-          //   //const target = i / 16;
-          //   // const target2 = i % 16;
-          //   const target = i / 16;
-          //   // if (target2 === 0) hexString[Math.floor(target)] = [uint8Array[i].toString(16).padStart(2, '0')]
-          //   // else hexString[Math.floor(target)].push(uint8Array[i].toString(16).padStart(2, '0'))
-          //   //hexString[Math.floor(target)][] = uint8Array[i].toString(16).padStart(2, '0')
-          //   //hexString[Math.floor(target)].push(uint8Array[i].toString(16).padStart(2, '0'))
-          //   //hexString[Math.floor(target)].push(uint8Array[i].toString(16).padStart(2, '0'))
-          //   hexString.push(uint8Array[i].toString(16).padStart(2, '0'))
-          // }
-
-          // for (let i = 15; i < hexString.length; i += 16) { // Start at index 5 (6th element), increment by 6
-          //   hexString[i] += '\n';
-          // }
 
         setOriginalArray(raw);
-
-        // let result = [];
-        // for (let i = 0; i < raw.length; i++) {
-        //   // result.push(raw[i]);
-        //   // // Insert newline after every nth element, but not after the last element
-        //   // if ((i + 1) % n === 0 && i !== raw.length - 1) {
-        //   //   result.push('\n');
-        //   // }
-
-        //   //arr[i] = modificationFn(arr[i], i, arr);
-        // }
 
         for (let i = 16; i < raw2.length; i += 16) {
           //raw[i] = modificationFn(arr[i], i, arr);
@@ -155,141 +91,31 @@ function Home() {
   const RES_TABLE_OVERLAYABLE_POLICY_TYPE = '0502';
   const RES_TABLE_STAGED_ALIAS_TYPE       = '0602';
 
-  //console.log("33", hexContent)
-  //console.log("33", hexContent)
-
-  //console.log("33 LENGTH", hexContent.length)
-  //console.log("33 LENGTH", hexContent.length.toString().length)
-
-  // const arrayBufferToHex = (arrayBuffer) => {
-  //   const uint8Array = new Uint8Array(arrayBuffer);
-  //   const hexString = [];
-  //   for (let i = 0; i < uint8Array.length; i++) {
-  //     //const byte = uint8Array[i];
-  //     //hexString += byte.toString(16).padStart(2, '0');
-  //     hexString.push(uint8Array[i].toString(16).padStart(2, '0'))
-  //   }
-  //   return hexString;
-  // };
-
-  //const qq = hexContent.map((e: [], i) =>  <div key={i} style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>{e.join(' ')}</div>)
-  //const qq = hexContent.map((e: [], i) =>  <div key={i} style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>{e.join(' ')}</div>)
-
-  // const canvas = document.getElementById('myCanvas');
-  // let ctx;
-  // if (canvas !== null) ctx = canvas.getContext('2d');
-  // //const ctx = canvas.getContext('2d');
-
-  // const cellWidth = 50;
-  // const cellHeight = 50;
-
-  // for (let row = 0; row < hexContent.length; row++) {
-  //   for (let col = 0; col < hexContent[row].length; col++) {
-  //       const value = hexContent[row][col];
-  //       const x = col * cellWidth;
-  //       const y = row * cellHeight;
-
-  //       // Customize drawing based on the cell's value
-  //       if (value === 1) {
-  //           ctx.fillStyle = 'blue';
-  //       } else {
-  //           ctx.fillStyle = 'lightgray';
-  //       }
-
-  //       ctx.fillRect(x, y, cellWidth, cellHeight);
-  //       ctx.strokeStyle = 'black'; // Optional: Add a border
-  //       ctx.strokeRect(x, y, cellWidth, cellHeight);
-  //       //ctx.fillText('My text', x, y);
-  //   }
-  // }
-
-  //const padStart = originalArray.length.toString().length
-
-  //const newPadStart = Math.ceil(hexContent.length / 16).length.toString().length
   const padStart = Math.ceil(originalArray.length / 16).toString().length
-  //console.log("newPadStart", padStart)
-
-  //console.log("FINAL ", hexContent.join(' ').split('\n'))
-
-  const preToShow = originalArray.join(' ').split('\n')
-
-
-  //Math.ceil(uint8Array.length / 16).length.toString().length
 
   console.log("hexContent", originalArray)
-  //console.log("preToShow", preToShow)
-
-  // function asd() {
-  //   for (let i = 15; i < originalArray.length; i += 16) {
-  //     originalArray[i] = `\n${originalArray[i]}`
-  //   }
-  // }
-
-  // function aa() {
-  //   for (let i = 15; i < originalArray.length; i += 16) {
-  //       originalArray[i] = `\n${originalArray[i]}`
-  //     }
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   //setToDisplay(curr => {return curr})
-  //   setToDisplay(originalArray)
-  // }, [originalArray])
-  
 
   console.log("toDisplay", toShow)
 
-  //setToShow(curr => curr)
-
-  //.
-
   return (
     <div>
-      <input type="file" /* ref={fileInputRef} */ onChange={handleFileChange} />
+      <input type="file" onChange={handleFileChange} />
       {originalArray && (
         <div>
           <h3>Hexadecimal Content:</h3>
           <div style={{ whiteSpace: 'pre-wrap', fontFamily: 'monospace', fontSize: 'large', background: 'lavender', width: 'fit-content' }}>
 
-            {/* {
-              hexContent.map((e: string[], i) => {
-                return <div style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-all' }} key={i}>{e.join(' ')}</div>
-              })
-            } */}
-
-            {/* <canvas id="myCanvas" width="400" height="400"></canvas> */}
-            {/* <div style={{width: '100%', border: '1px solid black', whiteSpace: 'pre-wrap', wordBreak: 'break-all' }} >
-              {hexContent.map((row: [], rowIndex) => ( // Skip the header row
-                row.toString()
-              ))}
-            </div> */}
-
             {
-              /* hexContent[Symbol.iterator]() */
               /* hexContent.join(' ') */
               //hexContent.join("\n")
               //toShow.join("\n")
               //toShow.join(" ")
-              /* hexContent.map((iA: [], idx) => iA.join(`${idx} `)).join(`\n`) */
-              //hexContent.map((iA: [], idx) => { return iA.join(` `) } ).join(`\n`)
-              //hexContent.map((iA: [], idx) => { return `${idx} ${iA}` } ).join(`\n`)
-              // hexContent.map((item: [], index) => {
-              //   return `${`${(++index)}`.padStart(padStart, '0')}. ${item.join(' ')}`; // Adds 1 to index for 1-based numbering
-              // }).join("\n")
-              // preToShow.map((item, index) => {
-              //   //return `${`${(++index)}`.padStart(newPadStart, '0')}. ${item}`; // Adds 1 to index for 1-based numbering
-              //   return `${`${(index+1)}`.padStart(padStart, '0')}: ${item}`; // Adds 1 to index for 1-based numbering
-              //   //return `${item}`; // Adds 1 to index for 1-based numbering
-              // }).join("\n")
-              ////gmail
               toShow.map((item, index) => {
                 //return `${`${(++index)}`.padStart(newPadStart, '0')}. ${item}`; // Adds 1 to index for 1-based numbering
                 return `${`${(index+1)}`.padStart(padStart, '0')}: ${item}`; // Adds 1 to index for 1-based numbering
                 //return `${item}`; // Adds 1 to index for 1-based numbering
               }).join("\n")
             }
-
 
           </div>
         </div>
@@ -300,4 +126,3 @@ function Home() {
 }
 
 export default Home;
-//export default React.memo(Home);
