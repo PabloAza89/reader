@@ -35,10 +35,24 @@ function Home() {
         //const hexString = arrayBufferToHex(arrayBuffer);
         const uint8Array = new Uint8Array(arrayBuffer);
 
+        console.log("ARRAY BUFFER", uint8Array)
+
+        //let qq = new DataView(arrayBuffer)
+
+        //console.log("NEW TEST")
+
         const raw: string[] = Array.from(uint8Array, e => e.toString(16).padStart(2, '0') )
 
         // const raw: string[] = [
         //   '02', '00', '0c', '00', '5c', '93', 'fa', '00', '04', '00', '00', '00', '01', '00', '1c', '00',
+        //   '84', '64', 'a8', '00', 'f6', '52', '02', '00', '1b', '05', '00', '00', '00', '01', '00', '00',
+        //   '60', '60', '09', '00', 'cc', '12', 'a8', '00', '00', '00', '00', '00', '48', '00', '00', '00',
+        //   '90', '00', '00', '00', '98', '00', '00', '00', 'b6', '00', '00', '00', 'cb', '00', '00', '00',
+        //   'f0', '00', '00', '00', '00', '01', '00', '00', '17', '01', '00', '00', '48', '01', '00', '00',
+        // ]
+
+        // const raw: string[] = [
+        //   '02', '00', '0c', '00', '5c', '93', 'fa', '00', '04', '00', '00', '00', ac'01', '00', '1c', '00',
         //   '84', '64', 'a8', '00', 'f6', '52', '02', '00', '1b', '05', '00', '00', '00', '01', '00', '00',
         //   '60', '60', '09', '00', 'cc', '12', 'a8', '00', '00', '00', '00', '00', '48', '00', '00', '00',
         //   '90', '00', '00', '00', '98', '00', '00', '00', 'b6', '00', '00', '00', 'cb', '00', '00', '00',
@@ -65,37 +79,183 @@ function Home() {
     }
   };
 
-  const RES_NULL_TYPE                     = '0000'; // already little-endian
-  const RES_STRING_POOL_TYPE              = '0100'; //
-  const RES_TABLE_TYPE                    = '0200';
-  const RES_XML_TYPE                      = '0300';
+  // const RES_NULL_TYPE                     = '0000'; // already little-endian
+  // const RES_STRING_POOL_TYPE              = '0100'; //
+  // const RES_TABLE_TYPE                    = '0200';
+  // const RES_XML_TYPE                      = '0300';
 
-    // Chunk types in RES_XML_TYPE
-  const RES_XML_FIRST_CHUNK_TYPE          = '0001';
-  const RES_XML_START_NAMESPACE_TYPE      = '0001';
-  const RES_XML_END_NAMESPACE_TYPE        = '0101';
-  const RES_XML_START_ELEMENT_TYPE        = '0201';
-  const RES_XML_END_ELEMENT_TYPE          = '0301';
-  const RES_XML_CDATA_TYPE                = '0401';
-  const RES_XML_LAST_CHUNK_TYPE           = '7f01';
-    // This contains a uint32_t array mapping strings in the string
-    // pool back to resource identifiers.  It is optional.
-  const RES_XML_RESOURCE_MAP_TYPE         = '8001';
+  //   // Chunk types in RES_XML_TYPE
+  // const RES_XML_FIRST_CHUNK_TYPE          = '0001';
+  // const RES_XML_START_NAMESPACE_TYPE      = '0001';
+  // const RES_XML_END_NAMESPACE_TYPE        = '0101';
+  // const RES_XML_START_ELEMENT_TYPE        = '0201';
+  // const RES_XML_END_ELEMENT_TYPE          = '0301';
+  // const RES_XML_CDATA_TYPE                = '0401';
+  // const RES_XML_LAST_CHUNK_TYPE           = '7f01';
+  //   // This contains a uint32_t array mapping strings in the string
+  //   // pool back to resource identifiers.  It is optional.
+  // const RES_XML_RESOURCE_MAP_TYPE         = '8001';
 
-    // Chunk types in RES_TABLE_TYPE
-  const RES_TABLE_PACKAGE_TYPE            = '0002';
-  const RES_TABLE_TYPE_TYPE               = '0102';
-  const RES_TABLE_TYPE_SPEC_TYPE          = '0202';
-  const RES_TABLE_LIBRARY_TYPE            = '0302';
-  const RES_TABLE_OVERLAYABLE_TYPE        = '0402';
-  const RES_TABLE_OVERLAYABLE_POLICY_TYPE = '0502';
-  const RES_TABLE_STAGED_ALIAS_TYPE       = '0602';
+  //   // Chunk types in RES_TABLE_TYPE
+  // const RES_TABLE_PACKAGE_TYPE            = '0002';
+  // const RES_TABLE_TYPE_TYPE               = '0102';
+  // const RES_TABLE_TYPE_SPEC_TYPE          = '0202';
+  // const RES_TABLE_LIBRARY_TYPE            = '0302';
+  // const RES_TABLE_OVERLAYABLE_TYPE        = '0402';
+  // const RES_TABLE_OVERLAYABLE_POLICY_TYPE = '0502';
+  // const RES_TABLE_STAGED_ALIAS_TYPE       = '0602';
+
+  // interface asd {
+  //   ['string']: string
+  // }
+
+  // const obj: unknown = { // already little-endian
+  //   '0000': 'RES_NULL_TYPE',
+  //   '0100': 'RES_STRING_POOL_TYPE',
+  //   '0200': {
+  //     'n': 'ResTable_header', // name
+  //     'cS': [2,4], // chunkSize // 12
+  //     'nC': [4,8], // nextChunk
+  //     'tP': [8,12] // total ResTable_packages
+  //   },
+  //   '0300': 'RES_XML_TYPE',
+  //   '0001': 'RES_XML_FIRST_CHUNK_TYPE',
+  //   //'0001': 'RES_XML_START_NAMESPACE_TYPE',
+  //   '0101': 'RES_XML_END_NAMESPACE_TYPE',
+  //   '0201': 'RES_XML_START_ELEMENT_TYPE',
+  //   '0301': 'RES_XML_END_ELEMENT_TYPE',
+  //   '0401': 'RES_XML_CDATA_TYPE',
+  //   '7f01': 'RES_XML_LAST_CHUNK_TYPE',
+  //   '8001': 'RES_XML_RESOURCE_MAP_TYPE',
+  //   '0002': 'RES_TABLE_PACKAGE_TYPE',
+  //   '0102': 'RES_TABLE_TYPE_TYPE',
+  //   '0202': 'RES_TABLE_TYPE_SPEC_TYPE',
+  //   '0302': 'RES_TABLE_LIBRARY_TYPE',
+  //   '0402': 'RES_TABLE_OVERLAYABLE_TYPE',
+  //   '0502': 'RES_TABLE_OVERLAYABLE_POLICY_TYPE',
+  //   '0602': 'RES_TABLE_STAGED_ALIAS_TYPE',
+  // }
+
+  const toHex = (fir, sec) => {
+    return parseInt(originalArray.slice(i+fir,i+sec).reverse().join(''), 16)
+  }
+
+  const common = (type) => {
+    console.log('name: ', type) // name
+    console.log('chunkSize: ', toHex(2,4)) // chunkSize // 12
+    console.log('nextChunk: ', toHex(4,8)) // nextChunk
+  }
+
+  const obj: unknown = { // already little-endian
+    '0000': 'RES_NULL_TYPE',
+    '0100': () => {
+      common('ResStringPool_header')
+      const totalStrings: number = toHex(8,12)
+      const totalStyles: number = toHex(12,16)
+      
+      console.log('total Strings: ', totalStrings)
+      console.log('total Styles: ', totalStyles)
+      console.log('UTF-8 ?: ', toHex(16,20))
+      console.log('string start: ', toHex(20,24))
+      console.log('style start: ', toHex(24,28))
+
+      const stringIndices = []
+
+      //const sSI = i+28 // startStringIndices
+      i = i+28 // update index
+
+      const stopIndexStrings = (totalStrings * 4) + i
+      while (i < stopIndexStrings) {
+        stringIndices.push(toHex(0,4))
+        i+=4
+      }
+      console.log('stringIndices: ', stringIndices)
+      const styleIndices = []
+
+      const stopIndexStyles = (totalStyles * 4) + i
+      while (i < stopIndexStyles) {
+        styleIndices.push(toHex(0,4))
+        i+=4
+      }
+      console.log('styleIndices: ', styleIndices)
+
+      //return i + 28
+      return 43
+    },
+    '0200': () => {
+      common('name: ResTable_header')
+      console.log('total ResTable_packages: ', toHex(8,12)) // total ResTable_packages
+      return 12
+    },
+    '0300': 'RES_XML_TYPE',
+    '0001': 'RES_XML_FIRST_CHUNK_TYPE',
+    //'0001': 'RES_XML_START_NAMESPACE_TYPE',
+    '0101': 'RES_XML_END_NAMESPACE_TYPE',
+    '0201': 'RES_XML_START_ELEMENT_TYPE',
+    '0301': 'RES_XML_END_ELEMENT_TYPE',
+    '0401': 'RES_XML_CDATA_TYPE',
+    '7f01': 'RES_XML_LAST_CHUNK_TYPE',
+    '8001': 'RES_XML_RESOURCE_MAP_TYPE',
+    '0002': 'RES_TABLE_PACKAGE_TYPE',
+    '0102': 'RES_TABLE_TYPE_TYPE',
+    '0202': 'RES_TABLE_TYPE_SPEC_TYPE',
+    '0302': 'RES_TABLE_LIBRARY_TYPE',
+    '0402': 'RES_TABLE_OVERLAYABLE_TYPE',
+    '0502': 'RES_TABLE_OVERLAYABLE_POLICY_TYPE',
+    '0602': 'RES_TABLE_STAGED_ALIAS_TYPE',
+  }
 
   const padStart = Math.ceil(originalArray.length / 16).toString().length
 
-  console.log("hexContent", originalArray)
+  //console.log("hexContent", originalArray)
 
-  console.log("toDisplay", toShow)
+  //console.log("toDisplay", toShow)
+
+  // for (let i = 0; i < originalArray.length;) {
+  //   console.log("Iteration number: " + i);
+  //   //originalArray.slice(0,2).join('')
+    
+  //   console.log('type: ', obj[originalArray.slice(0,i+2).join('')])
+  //   //console.log(i, byte length: originalArray.slice(i+2,i+4).reverse().join('') )
+  //   //console.log(i, 'byte length', parseInt(originalArray.slice(i+2,i+4).reverse().join(''), 16) )
+  //   console.log('byte length', parseInt(originalArray.slice(i+2,i+4).reverse().join(''), 16))
+  //   i = parseInt(originalArray.slice(i+2,i+4).reverse().join(''), 16)
+
+  // }
+  let i = 0
+  //while (i < originalArray.length) {
+  // while (obj[originalArray.slice(i,i+2).join('')] !== undefined && i < originalArray.length) {
+  //   console.log("Iteration number: " + i);
+  //   //originalArray.slice(0,2).join('')
+    
+  //   console.log('type: ', obj[originalArray.slice(i,i+2).join('')])
+  //   //console.log(i, byte length: originalArray.slice(i+2,i+4).reverse().join('') )
+  //   //console.log(i, 'byte length', parseInt(originalArray.slice(i+2,i+4).reverse().join(''), 16) )
+  //   //console.log('byte length', parseInt(originalArray.slice(i+2,i+4).reverse().join(''), 16))
+  //   console.log('next chunk', parseInt(originalArray.slice(i+2,i+4).reverse().join(''), 16))
+  //   i = parseInt(originalArray.slice(i+2,i+4).reverse().join(''), 16)
+  // }
+
+  while (obj[originalArray.slice(i,i+2).join('')] !== undefined) {
+    console.log("Iteration number: " + i);
+    //originalArray.slice(0,2).join('')
+
+    let target = originalArray.slice(i,i+2).join('') // target
+    
+    // console.log('name: ', t.n)
+    // //console.log(i, byte length: originalArray.slice(i+2,i+4).reverse().join('') )
+    // //console.log(i, 'byte length', parseInt(originalArray.slice(i+2,i+4).reverse().join(''), 16) )
+    // //console.log('byte length', parseInt(originalArray.slice(i+2,i+4).reverse().join(''), 16))
+    // console.log('chunkSize:', parseInt(originalArray.slice(i+t.cS[0],i+t.cS[1]).reverse().join(''), 16))
+    // console.log('nextChunk:', parseInt(originalArray.slice(i+t.nC[0],i+t.nC[1]).reverse().join(''), 16))
+    // console.log('ResTable_packages total:', parseInt(originalArray.slice(i+t.tP[0],i+t.tP[1]).reverse().join(''), 16))
+    //i = parseInt(originalArray.slice(i+2,i+4).reverse().join(''), 16)
+    //console.log("I BEFORE", i)
+    i = obj[target]()
+    //console.log("TARGET", typeof target)
+    //console.log("I AFTER", i)
+    //i = 43
+  }
 
   return (
     <div>
