@@ -120,12 +120,57 @@ function Home() {
   console.log("indicesTest last", indicesTest[0])
   //console.log("indicesTest last", indicesTest[indicesTest.length -1])
 
+  useEffect(() => {
+    const updateScrollPosition = () => {
+      //setScrollPosition({ x: window.scrollX, y: window.scrollY });
+    };
+
+    // let qq = document.getElementById('aaa')
+    // //console.log("QQ", qq)
+    // //console.log(qq)
+    // console.dir(qq)
+
+    // if (qq !== null) {
+    //   qq.addEventListener('scroll', function(){
+    //     console.log("QQ offsetHeight", qq.offsetHeight)
+    //     //console.log("QQ position iH", window.innerHeight)
+    //     //console.log("QQ position", window)
+    //   }, { passive: true });
+    // }
+    
+
+    //window.addEventListener('scroll', updateScrollPosition, { passive: true });
+    window.addEventListener('scroll', function(){
+      console.log("position sY", window.scrollY-32) // curr pos
+      console.log("position iH", window.innerHeight) // thumb dimen
+      //console.log("total", (window.scrollY + window.innerHeight) -32)
+      console.log("window", window)
+
+      console.log("max", 4000 - this.innerHeight) // OK
+      console.log("percent", (this.scrollY-32) / (4000 - this.innerHeight)) // OK
+      console.log("abs thumb", (this.innerHeight) * ((this.scrollY-32) / (4000 - this.innerHeight)))
+      console.log("abs scroll", (window.scrollY-32) + ((this.innerHeight) * ((this.scrollY-32) / (4000 - this.innerHeight))))
+    }, { passive: true });
+
+    // document.addEventListener('scroll', function(){
+    //   //console.log("document", this)
+    //   console.dir(this)
+    //   //console.log("position iH", window.innerHeight)
+    //   //console.log("position", window)
+    // }, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', updateScrollPosition);
+    };
+  }, []);
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'row'}}>
+    <div id={'aaa'}style={{ display: 'flex', flexDirection: 'row'}}>
         <div  style={{ background: 'lightyellow', marginTop: '32px', width: `${padStart}ch`, lineHeight: '16px', fontFamily: 'monospace', fontSize: '16px', }} >
           {
             //indices.join(' ')
-            indicesTest[0] && indicesTest[0].join(' ')+" "
+            //indicesTest[0] && indicesTest[0].join(' ')+" "
+            indicesTest[0] && indicesTest[indicesTest.length -1].join(' ')+" "
           }
         </div>
         <div>
@@ -140,7 +185,8 @@ function Home() {
 
               //originalArray.map(e => `${e} `)
               //originalArray.join(' ')
-              toShow[0] && toShow[0].join(' ')+" "
+              //toShow[0] && toShow[0].join(' ')+" "
+              toShow[0] && toShow[toShow.length -1].join(' ')+" "
               //toShow[4105] && toShow[4105].join(' ')+" "
               //toShow && toShow.join(' ')
               //originalArray.map(e => e).join(' ')
