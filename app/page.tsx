@@ -154,6 +154,7 @@ function Home() {
       console.log("scroll curr", this.scrollY-32)
       console.log("thumb height", this.innerHeight-32)
       console.log("scroll curr + thumb", (this.scrollY-32) + this.innerHeight)
+      console.log("scroll curr + thumb", Math.floor(((this.scrollY-32) + this.innerHeight) / 4000)) // TRACKING
 
     }, { passive: true });
 
