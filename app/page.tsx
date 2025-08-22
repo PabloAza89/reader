@@ -141,15 +141,20 @@ function Home() {
 
     //window.addEventListener('scroll', updateScrollPosition, { passive: true });
     window.addEventListener('scroll', function(){
-      console.log("position sY", window.scrollY-32) // curr pos
-      console.log("position iH", window.innerHeight) // thumb dimen
+      //console.log("position sY", window.scrollY-32) // curr pos
+      //console.log("position iH", window.innerHeight) // thumb dimen
       //console.log("total", (window.scrollY + window.innerHeight) -32)
-      console.log("window", window)
+      //console.log("window", window)
 
-      console.log("max", 4000 - this.innerHeight) // OK
-      console.log("percent", (this.scrollY-32) / (4000 - this.innerHeight)) // OK
-      console.log("abs thumb", (this.innerHeight) * ((this.scrollY-32) / (4000 - this.innerHeight)))
-      console.log("abs scroll", (window.scrollY-32) + ((this.innerHeight) * ((this.scrollY-32) / (4000 - this.innerHeight))))
+      // console.log("max", 4000 - this.innerHeight) // OK
+      // console.log("percent", (this.scrollY-32) / (4000 - this.innerHeight)) // OK
+      // console.log("abs thumb", (this.innerHeight) * ((this.scrollY-32) / (4000 - this.innerHeight)))
+      // console.log("abs scroll", (window.scrollY-32) + ((this.innerHeight) * ((this.scrollY-32) / (4000 - this.innerHeight))))
+
+      console.log("scroll curr", this.scrollY-32)
+      console.log("thumb height", this.innerHeight-32)
+      console.log("scroll curr + thumb", (this.scrollY-32) + this.innerHeight)
+
     }, { passive: true });
 
     // document.addEventListener('scroll', function(){
@@ -169,9 +174,10 @@ function Home() {
         <div  style={{ background: 'lightyellow', marginTop: '32px', width: `${padStart}ch`, lineHeight: '16px', fontFamily: 'monospace', fontSize: '16px', }} >
           {
             //indices.join(' ')
-            //indicesTest[0] && indicesTest[0].join(' ')+" "
-            indicesTest[0] && indicesTest[indicesTest.length -1].join(' ')+" "
+            indicesTest[0] && indicesTest[0].join(' ')+" "
+            //indicesTest[0] && indicesTest[indicesTest.length -1].join(' ')+" "
           }
+          { indicesTest[1] && indicesTest[1].join(' ')+" " }
         </div>
         <div>
           <input type="file" onChange={handleFileChange} style={{ background: 'red', height: '32px' }} />
@@ -186,13 +192,14 @@ function Home() {
               //originalArray.map(e => `${e} `)
               //originalArray.join(' ')
               //toShow[0] && toShow[0].join(' ')+" "
-              toShow[0] && toShow[toShow.length -1].join(' ')+" "
+              toShow[0] && toShow[0].join(' ')+" "
+              //toShow[0] && toShow[toShow.length -1].join(' ')+" "
               //toShow[4105] && toShow[4105].join(' ')+" "
               //toShow && toShow.join(' ')
               //originalArray.map(e => e).join(' ')
 
             }
-
+            { toShow[1] && toShow[1].join(' ')+" " }
             {/* { toShow[1] && toShow[1].join(' ') } */}
 
             
