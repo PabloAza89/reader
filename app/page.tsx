@@ -16,10 +16,22 @@ function Home() {
   //let originalArray = []
   const [toShow, setToShow] = useState<string[][]>([]);
 
-  const [ indices, setIndices ] = useState<string[]>([]);
+  const toShowRef = useRef<string[][]>([['']])
+
+  const [ indices, setIndices ] = useState<string[][]>([]); // ←←← DON'T USE IT!!
 
   const [ indicesTest, setIndicesTest ] = useState<string[]>([]);
 
+  //const [ currentIndex, setCurrentIndex ] = useState(0)
+
+  const currentIndex = useRef(0)
+
+  console.log("currentIndex.current", currentIndex.current)
+  //console.log()
+
+  // useEffect(() => {
+  //   console.log("scroll curr + thumb", currentIndex) // TRACKING
+  // }, [currentIndex])
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -64,6 +76,7 @@ function Home() {
         }
         console.log("chunked lenght", chunkedArray.length)
         setToShow(chunkedArray)
+        toShowRef.current = chunkedArray
         setIndicesTest(arrIndices)
         setOriginalArray2(['done'])
 
@@ -151,11 +164,31 @@ function Home() {
       // console.log("abs thumb", (this.innerHeight) * ((this.scrollY-32) / (4000 - this.innerHeight)))
       // console.log("abs scroll", (window.scrollY-32) + ((this.innerHeight) * ((this.scrollY-32) / (4000 - this.innerHeight))))
 
-      console.log("scroll curr", this.scrollY-32)
-      console.log("thumb height", this.innerHeight-32)
-      console.log("scroll curr + thumb", (this.scrollY-32) + this.innerHeight)
-      console.log("scroll curr + thumb", Math.floor(((this.scrollY-32) + this.innerHeight) / 4000)) // TRACKING
+      //console.log("scroll curr", this.scrollY-32)
+      //console.log("thumb height", this.innerHeight-32)
+      // console.log("scroll curr + thumb", (this.scrollY-32) + this.innerHeight)
+      //console.log("scroll curr + thumb", Math.floor(((this.scrollY-32) + this.innerHeight) / 4000)) // TRACKING
 
+      const qq = Math.floor(((this.scrollY-32) + this.innerHeight) / 4000)
+      //console.log("scroll curr + thumb", qq) // TRACKING
+
+      //setCurrentIndex(qq)
+      currentIndex.current = qq ?? 0
+      console.log("scroll curr + thumb", qq) // TRACKING
+      if (divRef.current !== null && qq < 4104) {
+        divRef.current.style.paddingTop = `${qq === 0 ? 0 : ((qq-1) * 4000)}px`
+        divRef.current.style.paddingBottom = `${(4106-(qq+2)) * 4000}px`
+        console.log("AAAAAAAA", (qq-1) * 4000)
+        console.log("BBBBBBBB", (4106-(qq+2)) * 4000)
+        //divRef.current.textContent = toShow[qq].join(' ')+" "
+        //divRef.current.textContent = toShowRef.current[qq-1].join(' ')+" "
+        //divRef.current.textContent = toShowRef.current[qq-1].join(' ')+" " + toShowRef.current[qq].join(' ')+" " + toShowRef.current[qq+1].join(' ')+" "
+        divRef.current.textContent = `${qq === 0 ? '' : toShowRef.current[qq-1].join(' ')} ${toShowRef.current[qq].join(' ')} ${toShowRef.current[qq+1].join(' ')} `
+        //console.log("textContent", divRef.current.textContent)
+        //console.log("111", toShow[qq])
+        //console.log("222", toShowRef.current[qq])
+        
+      }
     }, { passive: true });
 
     // document.addEventListener('scroll', function(){
@@ -170,6 +203,19 @@ function Home() {
     };
   }, []);
 
+  const divRef = useRef(null)
+
+  console.log("A VER ESTE", divRef.current)
+  //console.log(divRef.current)
+  console.dir(divRef.current)
+
+  console.log("toSHow lllength", toShow.length)
+  console.log("indicesTest lllength", indicesTest.length)
+  console.log("indices lllength 2 ", indicesTest.length * 4000)
+
+  //if (indicesTest[0] !== undefined) console.log("indices[0] :::", indicesTest[0])
+  
+
   return (
     <div id={'aaa'}style={{ display: 'flex', flexDirection: 'row'}}>
         <div  style={{ background: 'lightyellow', marginTop: '32px', width: `${padStart}ch`, lineHeight: '16px', fontFamily: 'monospace', fontSize: '16px', }} >
@@ -182,9 +228,10 @@ function Home() {
         </div>
         <div>
           <input type="file" onChange={handleFileChange} style={{ background: 'red', height: '32px' }} />
-          <div style={{ /* whiteSpace: 'pre-wrap', */ fontFamily: 'monospace', /* fontSize: 'large', */ background: 'lavender',
+          <div ref={divRef} style={{ /* whiteSpace: 'pre-wrap', */ fontFamily: 'monospace', /* fontSize: 'large', */ background: 'lavender',
             /* width: 'fit-content', */ lineHeight: '16px', width: '48ch',
-            fontSize: '16px'
+            fontSize: '16px', //paddingBottom: `${currentIndex.current * 8000}px`
+            //fontSize: '16px', paddingBottom: `${indicesTest.length * 4000}px`
             /* , minWidth: 'max-content' */ }}>
 
             {
@@ -193,15 +240,17 @@ function Home() {
               //originalArray.map(e => `${e} `)
               //originalArray.join(' ')
               //toShow[0] && toShow[0].join(' ')+" "
-              toShow[0] && toShow[0].join(' ')+" "
+              //toShow[0] && toShow[0].join(' ')+" "
               //toShow[0] && toShow[toShow.length -1].join(' ')+" "
+              toShowRef.current[0].join(' ')+" "
               //toShow[4105] && toShow[4105].join(' ')+" "
               //toShow && toShow.join(' ')
               //originalArray.map(e => e).join(' ')
 
             }
-            { toShow[1] && toShow[1].join(' ')+" " }
+            { /* toShow[1] && toShow[1].join(' ')+" " */ }
             {/* { toShow[1] && toShow[1].join(' ') } */}
+            { toShowRef.current[1] && toShowRef.current[1].join(' ')+" " }
 
             
 
