@@ -164,26 +164,35 @@ function Home() {
       // console.log("abs thumb", (this.innerHeight) * ((this.scrollY-32) / (4000 - this.innerHeight)))
       // console.log("abs scroll", (window.scrollY-32) + ((this.innerHeight) * ((this.scrollY-32) / (4000 - this.innerHeight))))
 
-      //console.log("scroll curr", this.scrollY-32)
-      //console.log("thumb height", this.innerHeight-32)
-      // console.log("scroll curr + thumb", (this.scrollY-32) + this.innerHeight)
+      console.log("scroll curr", this.scrollY-32)
+      console.log("thumb height", this.innerHeight)
+      console.log("scroll curr + thumb height", (this.scrollY-32)+this.innerHeight)
+      console.log("scroll curr + thumb height / 4000", ((this.scrollY-32)+this.innerHeight)/4000)
+      //console.log("scroll curr + thumb", (this.scrollY-32) + this.innerHeight)
+      //console.log("scroll curr + thumb", (this.scrollY-32) + this.innerHeight)
       //console.log("scroll curr + thumb", Math.floor(((this.scrollY-32) + this.innerHeight) / 4000)) // TRACKING
-
-      const qq = Math.floor(((this.scrollY-32) + this.innerHeight) / 4000)
+      //console.log("ESTE A VER", ((this.scrollY) + (this.innerHeight-32)) / 4000)
+      const qq = Math.floor(((this.scrollY-32) + (this.innerHeight)) / 4000)
       //console.log("scroll curr + thumb", qq) // TRACKING
 
+      //console.log("NNN", toShowRef.current[4105])
       //setCurrentIndex(qq)
       currentIndex.current = qq ?? 0
-      console.log("scroll curr + thumb", qq) // TRACKING
-      if (divRef.current !== null && qq < 4104) {
-        divRef.current.style.paddingTop = `${qq === 0 ? 0 : ((qq-1) * 4000)}px`
-        divRef.current.style.paddingBottom = `${(4106-(qq+2)) * 4000}px`
+      console.log("qq", qq) // TRACKING
+      if (divRef.current !== null /* && qq < 4106 */) {
+        //divRef.current.style.paddingTop = `${qq === 0 ? 0 : ((qq-1) * 4000)}px`
+        divRef.current.style.paddingTop = `${qq > 1 ? ((qq-1) * 4000) : 0 }px` // OLD! work at start
+        ////divRef.current.style.paddingBottom = `${(4106-(qq+2)) * 4000}px` // OLD! work at start
+        ////divRef.current.style.paddingBottom = `${(4105-(qq+1)) * 4000}px` // NEW! work at start
+        divRef.current.style.paddingBottom = `${qq < 4104 ? (4105-(qq+1)) * 4000 : 0}px` // NEW! work at start
         console.log("AAAAAAAA", (qq-1) * 4000)
         console.log("BBBBBBBB", (4106-(qq+2)) * 4000)
         //divRef.current.textContent = toShow[qq].join(' ')+" "
         //divRef.current.textContent = toShowRef.current[qq-1].join(' ')+" "
         //divRef.current.textContent = toShowRef.current[qq-1].join(' ')+" " + toShowRef.current[qq].join(' ')+" " + toShowRef.current[qq+1].join(' ')+" "
-        divRef.current.textContent = `${qq === 0 ? '' : toShowRef.current[qq-1].join(' ')} ${toShowRef.current[qq].join(' ')} ${toShowRef.current[qq+1].join(' ')} `
+        //divRef.current.textContent = `${qq === 0 ? '' : toShowRef.current[qq-1].join(' ')} ${toShowRef.current[qq].join(' ')} ${toShowRef.current[qq+1].join(' ')} ` // OLD! work at start
+        divRef.current.textContent = `${qq > 0 ? toShowRef.current[qq-1].join(' ') : ''} ${qq > 4105 ? '' : toShowRef.current[qq].join(' ')} ${qq > 4104 ? '' : toShowRef.current[qq+1].join(' ')} ` // NEW! work at start
+          
         //console.log("textContent", divRef.current.textContent)
         //console.log("111", toShow[qq])
         //console.log("222", toShowRef.current[qq])
