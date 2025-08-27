@@ -18,9 +18,9 @@ function Home() {
 
   const [done, setDone] = useState<string[][]>([]);
 
-  const toShowRef = useRef<string[][]>([['']])
+  const arrHex = useRef<string[][]>([['']])
 
-  const indicesRef = useRef<string[][]>([['']])
+  const arrInd = useRef<string[][]>([['']])
 
   const [ indices, setIndices ] = useState<string[][]>([]); // ←←← DON'T USE IT!!
 
@@ -80,19 +80,24 @@ function Home() {
         }
         console.log("chunked lenght", chunkedArray.length)
         //setToShow(chunkedArray)
-        toShowRef.current = chunkedArray
-        indicesRef.current = arrIndices
+        arrHex.current = chunkedArray
+        arrInd.current = arrIndices
 
-        if (divRef.current !== null) { // FIRST UPDATE
-          //divRef.current.textContent = `${qq > 0 ? toShowRef.current[qq-1].join(' ') : ''} ${qq > 4105 ? '' : toShowRef.current[qq].join(' ')} ${qq > 4104 ? '' : toShowRef.current[qq+1].join(' ')} ` // NEW! work at start
+        if (hexDivRef.current && indDivRef.current) { // FIRST UPDATE
+          //hexDivRef.current.textContent = `${qq > 0 ? toShowRef.current[qq-1].join(' ') : ''} ${qq > 4105 ? '' : toShowRef.current[qq].join(' ')} ${qq > 4104 ? '' : toShowRef.current[qq+1].join(' ')} ` // NEW! work at start
           // { toShowRef.current[0] && toShowRef.current[0].join(' ')+" " }
-          divRef.current.textContent = `${toShowRef.current[0].join(' ')} ${toShowRef.current[1].join(' ')} ` // NEW! work at start
-
+          
+          // paddingBottom = `${qq < 4104 ? (4105-(qq+1)) * 4000 : 0}px` // NEW! work at start
+          
+          // paddingBottom: `${toShowRef.current[0] ? (toShowRef.current.length-2) * 4000 : 0}px`,
           // { indicesTest[1] && indicesTest[1].join(' ')+" " }
           //indicesDivRef.current.textContent = `${indicesRef.current[0].join(' ')} ${indicesRef[1].join(' ')} `
-          indicesDivRef.current.textContent = `${indicesRef.current[0].join(' ')} ${indicesRef.current[1].join(' ')} `
+          indDivRef.current.textContent = `${arrInd.current[0].join(' ')} ${arrInd.current[1].join(' ')} `
+          indDivRef.current.style.width = `${8}ch`
 
-          indicesDivRef.current.style.width = `${8}ch`
+          hexDivRef.current.textContent = `${arrHex.current[0].join(' ')} ${arrHex.current[1].join(' ')} ` // NEW! work at start
+          hexDivRef.current.style.paddingBottom = `${(4105-1) * 4000}px`
+          indDivRef.current.style.paddingBottom = `${(4105-1) * 4000}px`
 
           //divRef.current.style.paddingTop
 
@@ -204,19 +209,26 @@ function Home() {
       //setCurrentIndex(qq)
       currentIndex.current = qq ?? 0
       console.log("qq", qq) // TRACKING
-      if (divRef.current !== null /* && qq < 4106 */) {
+      if (hexDivRef.current &&  indDivRef.current) { // ON SCROLL
         //divRef.current.style.paddingTop = `${qq === 0 ? 0 : ((qq-1) * 4000)}px`
-        divRef.current.style.paddingTop = `${qq > 1 ? ((qq-1) * 4000) : 0 }px` // OLD! work at start
+        
         ////divRef.current.style.paddingBottom = `${(4106-(qq+2)) * 4000}px` // OLD! work at start
         ////divRef.current.style.paddingBottom = `${(4105-(qq+1)) * 4000}px` // NEW! work at start
-        divRef.current.style.paddingBottom = `${qq < 4104 ? (4105-(qq+1)) * 4000 : 0}px` // NEW! work at start
-        console.log("AAAAAAAA", (qq-1) * 4000)
-        console.log("BBBBBBBB", (4106-(qq+2)) * 4000)
+
+        indDivRef.current.style.paddingTop = `${qq > 1 ? ((qq-1) * 4000) : 0 }px` // OLD! work at start
+        indDivRef.current.style.paddingBottom = `${qq < 4104 ? (4105-(qq+1)) * 4000 : 0}px` // NEW! work at start
+
+        hexDivRef.current.style.paddingTop = `${qq > 1 ? ((qq-1) * 4000) : 0 }px` // OLD! work at start
+        hexDivRef.current.style.paddingBottom = `${qq < 4104 ? (4105-(qq+1)) * 4000 : 0}px` // NEW! work at start
+        //console.log("AAAAAAAA", (qq-1) * 4000)
+        //console.log("BBBBBBBB", (4106-(qq+2)) * 4000)
         //divRef.current.textContent = toShow[qq].join(' ')+" "
         //divRef.current.textContent = toShowRef.current[qq-1].join(' ')+" "
         //divRef.current.textContent = toShowRef.current[qq-1].join(' ')+" " + toShowRef.current[qq].join(' ')+" " + toShowRef.current[qq+1].join(' ')+" "
         //divRef.current.textContent = `${qq === 0 ? '' : toShowRef.current[qq-1].join(' ')} ${toShowRef.current[qq].join(' ')} ${toShowRef.current[qq+1].join(' ')} ` // OLD! work at start
-        divRef.current.textContent = `${qq > 0 ? toShowRef.current[qq-1].join(' ') : ''} ${qq > 4105 ? '' : toShowRef.current[qq].join(' ')} ${qq > 4104 ? '' : toShowRef.current[qq+1].join(' ')} ` // NEW! work at start
+
+        indDivRef.current.textContent = `${qq > 0 ? arrInd.current[qq-1].join(' ') : ''} ${qq > 4105 ? '' : arrInd.current[qq].join(' ')} ${qq > 4104 ? '' : arrInd.current[qq+1].join(' ')} ` // NEW! work at start
+        hexDivRef.current.textContent = `${qq > 0 ? arrHex.current[qq-1].join(' ') : ''} ${qq > 4105 ? '' : arrHex.current[qq].join(' ')} ${qq > 4104 ? '' : arrHex.current[qq+1].join(' ')} ` // NEW! work at start
           
         //console.log("textContent", divRef.current.textContent)
         //console.log("111", toShow[qq])
@@ -237,12 +249,12 @@ function Home() {
     };
   }, []);
 
-  const divRef = useRef(null)
-  const indicesDivRef = useRef(null)
+  const hexDivRef = useRef(null)
+  const indDivRef = useRef(null)
 
-  console.log("A VER ESTE", divRef.current)
+  console.log("A VER ESTE", hexDivRef.current)
   //console.log(divRef.current)
-  console.dir(divRef.current)
+  console.dir(hexDivRef.current)
 
   console.log("toSHow lllength", toShow.length)
   console.log("indicesTest lllength", indicesTest.length)
@@ -250,40 +262,26 @@ function Home() {
 
   //if (indicesTest[0] !== undefined) console.log("indices[0] :::", indicesTest[0])
   
-  if (toShowRef.current[1]) console.log("WWW")
+  if (arrHex.current[1]) console.log("WWW")
 
   return (
-    <div id={'aaa'}style={{ display: 'flex', flexDirection: 'row'}}>
-        <div ref={indicesDivRef} style={{ 
-          background: 'lightyellow', marginTop: '32px', /* width: `${padStart}ch`, */ lineHeight: '16px',
+    <div style={{ display: 'flex', flexDirection: 'column'}}>
+      <input type="file" onChange={handleFileChange} style={{ background: 'red', height: '32px' }} />
+      <div style={{ display: 'flex', overflow: 'hidden' }}>
+        <div ref={indDivRef} style={{
+          background: 'lightyellow', lineHeight: '16px',
           fontFamily: 'monospace', fontSize: '16px',
           padding: `0 1ch`,
           boxSizing: 'content-box',
-        }} >
-          {
-            //indices.join(' ')
-            //indicesTest[0] && indicesTest[0].join(' ')+" "
-            //indicesTest[0] && indicesTest[indicesTest.length -1].join(' ')+" "
-          }
-          {/* { indicesTest[1] && indicesTest[1].join(' ')+" " } */}
-        </div>
-        <div>
-          <input type="file" onChange={handleFileChange} style={{ background: 'red', height: '32px' }} />
-          <div ref={divRef} style={{ /* whiteSpace: 'pre-wrap', */ fontFamily: 'monospace', /* fontSize: 'large', */ background: 'lavender',
-            /* width: 'fit-content', */ lineHeight: '16px', width: '47ch',
-            fontSize: '16px', //paddingBottom: `${currentIndex.current * 8000}px`
-            //fontSize: '16px', paddingBottom: `${indicesTest.length * 4000}px`
-            paddingBottom: `${toShowRef.current[0] ? (toShowRef.current.length-2) * 4000 : 0}px`,
-            paddingLeft: '1ch',
-            paddingRight: '1ch',
-            boxSizing: 'content-box',
-            /* , minWidth: 'max-content' */ }}>
-              {/* { toShowRef.current[0] && toShowRef.current[0].join(' ')+" " } */}
-              {/* { toShowRef.current[1] && toShowRef.current[1].join(' ')+" " } */}
-          </div>
-        </div>
-
-      
+        }} />
+        
+        <div ref={hexDivRef} style={{
+          background: 'lavender', lineHeight: '16px',
+          fontFamily: 'monospace', fontSize: '16px',
+          padding: `0 1ch`,
+          boxSizing: 'content-box',
+          width: '47ch', }} />
+      </div>
     </div>
   );
 
