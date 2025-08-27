@@ -12,11 +12,15 @@ import React, { useState, useEffect, useRef } from "react";
 function Home() {
 
   const [originalArray, setOriginalArray] = useState<string[]>([]);
-  const [originalArray2, setOriginalArray2] = useState<string[]>([]);
+  //const [originalArray2, setOriginalArray2] = useState<string[]>([]);
   //let originalArray = []
   const [toShow, setToShow] = useState<string[][]>([]);
 
+  const [done, setDone] = useState<string[][]>([]);
+
   const toShowRef = useRef<string[][]>([['']])
+
+  const indicesRef = useRef<string[][]>([['']])
 
   const [ indices, setIndices ] = useState<string[][]>([]); // ←←← DON'T USE IT!!
 
@@ -51,19 +55,19 @@ function Home() {
         //const raw: string[] = Array.from(uint8Array, e => e.toString(16).padStart(2, '0') )
         //setOriginalArray(Array.from(uint8Array, e => e.toString(16).padStart(2, '0')))
 
-        console.log("a ver len este", Math.floor(uint8Array.length / 16))
+        //console.log("a ver len este", Math.floor(uint8Array.length / 16))
 
         //let pad = Array.from({ length: uint8Array.length }, (_, index) => index * 16)
 
         //let pad = indices[indices.length - 1].toString().length
         //let pad = indices[indices.length - 1].toString().length
 
-        let len = Math.ceil(uint8Array.length / 16)
-        console.log("len len", len)
+        //let len = Math.ceil(uint8Array.length / 16)
+        //console.log("len len", len)
 
-        let indices = Array.from({ length: len  }, (_, index) => (index * 16).toString().padStart(8, '0'))
+        //let indices = Array.from({ length: len  }, (_, index) => (index * 16).toString().padStart(8, '0'))
 
-        setIndices(Array.from({ length: len  }, (_, index) => (index * 16).toString().padStart(8, '0')))
+        //setIndices(Array.from({ length: len  }, (_, index) => (index * 16).toString().padStart(8, '0')))
 
         const arr = Array.from(uint8Array, e => e.toString(16).padStart(2, '0'))
         console.log("a verrrr", arr.length)
@@ -75,10 +79,31 @@ function Home() {
           arrIndices.push(Array.from({ length: 250  }, (_, index) => (i + (index * 16)).toString().padStart(8, '0')))
         }
         console.log("chunked lenght", chunkedArray.length)
-        setToShow(chunkedArray)
+        //setToShow(chunkedArray)
         toShowRef.current = chunkedArray
-        setIndicesTest(arrIndices)
-        setOriginalArray2(['done'])
+        indicesRef.current = arrIndices
+
+        if (divRef.current !== null) { // FIRST UPDATE
+          //divRef.current.textContent = `${qq > 0 ? toShowRef.current[qq-1].join(' ') : ''} ${qq > 4105 ? '' : toShowRef.current[qq].join(' ')} ${qq > 4104 ? '' : toShowRef.current[qq+1].join(' ')} ` // NEW! work at start
+          // { toShowRef.current[0] && toShowRef.current[0].join(' ')+" " }
+          divRef.current.textContent = `${toShowRef.current[0].join(' ')} ${toShowRef.current[1].join(' ')} ` // NEW! work at start
+
+          // { indicesTest[1] && indicesTest[1].join(' ')+" " }
+          //indicesDivRef.current.textContent = `${indicesRef.current[0].join(' ')} ${indicesRef[1].join(' ')} `
+          indicesDivRef.current.textContent = `${indicesRef.current[0].join(' ')} ${indicesRef.current[1].join(' ')} `
+
+          indicesDivRef.current.style.width = `${8}ch`
+
+          //divRef.current.style.paddingTop
+
+          //width: `${padStart}ch`
+          
+
+        }
+        
+
+        //setIndicesTest(arrIndices)
+        //setOriginalArray2(['done'])
 
         // const raw: string[] = [
         //   '02', '00', '0c', '00', '5c', '93', 'fa', '00', '04', '00', '00', '00', '01', '00', '1c', '00',
@@ -213,6 +238,7 @@ function Home() {
   }, []);
 
   const divRef = useRef(null)
+  const indicesDivRef = useRef(null)
 
   console.log("A VER ESTE", divRef.current)
   //console.log(divRef.current)
@@ -224,45 +250,36 @@ function Home() {
 
   //if (indicesTest[0] !== undefined) console.log("indices[0] :::", indicesTest[0])
   
+  if (toShowRef.current[1]) console.log("WWW")
 
   return (
     <div id={'aaa'}style={{ display: 'flex', flexDirection: 'row'}}>
-        <div  style={{ background: 'lightyellow', marginTop: '32px', width: `${padStart}ch`, lineHeight: '16px', fontFamily: 'monospace', fontSize: '16px', }} >
+        <div ref={indicesDivRef} style={{ 
+          background: 'lightyellow', marginTop: '32px', /* width: `${padStart}ch`, */ lineHeight: '16px',
+          fontFamily: 'monospace', fontSize: '16px',
+          padding: `0 1ch`,
+          boxSizing: 'content-box',
+        }} >
           {
             //indices.join(' ')
-            indicesTest[0] && indicesTest[0].join(' ')+" "
+            //indicesTest[0] && indicesTest[0].join(' ')+" "
             //indicesTest[0] && indicesTest[indicesTest.length -1].join(' ')+" "
           }
-          { indicesTest[1] && indicesTest[1].join(' ')+" " }
+          {/* { indicesTest[1] && indicesTest[1].join(' ')+" " } */}
         </div>
         <div>
           <input type="file" onChange={handleFileChange} style={{ background: 'red', height: '32px' }} />
           <div ref={divRef} style={{ /* whiteSpace: 'pre-wrap', */ fontFamily: 'monospace', /* fontSize: 'large', */ background: 'lavender',
-            /* width: 'fit-content', */ lineHeight: '16px', width: '48ch',
+            /* width: 'fit-content', */ lineHeight: '16px', width: '47ch',
             fontSize: '16px', //paddingBottom: `${currentIndex.current * 8000}px`
             //fontSize: '16px', paddingBottom: `${indicesTest.length * 4000}px`
+            paddingBottom: `${toShowRef.current[0] ? (toShowRef.current.length-2) * 4000 : 0}px`,
+            paddingLeft: '1ch',
+            paddingRight: '1ch',
+            boxSizing: 'content-box',
             /* , minWidth: 'max-content' */ }}>
-
-            {
-
-
-              //originalArray.map(e => `${e} `)
-              //originalArray.join(' ')
-              //toShow[0] && toShow[0].join(' ')+" "
-              //toShow[0] && toShow[0].join(' ')+" "
-              //toShow[0] && toShow[toShow.length -1].join(' ')+" "
-              toShowRef.current[0].join(' ')+" "
-              //toShow[4105] && toShow[4105].join(' ')+" "
-              //toShow && toShow.join(' ')
-              //originalArray.map(e => e).join(' ')
-
-            }
-            { /* toShow[1] && toShow[1].join(' ')+" " */ }
-            {/* { toShow[1] && toShow[1].join(' ') } */}
-            { toShowRef.current[1] && toShowRef.current[1].join(' ')+" " }
-
-            
-
+              {/* { toShowRef.current[0] && toShowRef.current[0].join(' ')+" " } */}
+              {/* { toShowRef.current[1] && toShowRef.current[1].join(' ')+" " } */}
           </div>
         </div>
 
